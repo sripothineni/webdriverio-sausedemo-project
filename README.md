@@ -41,11 +41,24 @@ This assignment should take approximately 2 hours to complete.
 
 - Node.js 22 or higher
 - npm or yarn
+- Git
 
-### Installation
+### Setting Up the Repository
 
-1. Clone this repository
-2. Install dependencies:
+This assignment is distributed as a Git bundle. Follow these steps to set it up:
+
+1. Create a new directory for the project:
+   ```bash
+   mkdir qa-automation-assignment
+   cd qa-automation-assignment
+   ```
+
+2. Clone the repository from the bundle:
+   ```bash
+   git clone qa-automation-solution.bundle .
+   ```
+
+3. Install dependencies:
    ```bash
    npm install
    ```
@@ -70,11 +83,28 @@ This will generate the report and automatically open it in your default browser.
 
 ## Submission
 
-Please submit your completed assignment by:
+Please submit your completed assignment using Git bundle and sending it via email. Git bundle allows packaging your entire repository (including commit history) into a single file.
 
-1. Creating a new branch with your name
-2. Pushing your changes to that branch
-3. Creating a pull request
+### Packaging Your Solution
+
+1. After completing the assignment, commit all your changes:
+
+```bash
+git add .
+git commit -m "Completed assignment"
+```
+
+2. Create a Git bundle of your repository:
+
+```bash
+git bundle create qa-automation-solution.bundle --all
+```
+
+3. Send the bundle file to the provided email address with the subject line "QA Automation Assignment - [Your Name]"
+
+### Notes
+- Make sure to include your name and contact information in the email
+- The bundle file contains your complete repository with all commits
 
 ## Evaluation Criteria
 
