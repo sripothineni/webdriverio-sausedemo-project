@@ -56,7 +56,12 @@ export const config: Options.Testrunner = {
       {
         outputDir: 'allure-results',
         disableWebdriverStepsReporting: true,
-        disableWebdriverScreenshotsReporting: false
+        disableWebdriverScreenshotsReporting: false,
+        addConsoleLogs: true,
+        reportedEnvironmentVars: {
+          Browser: 'Chrome',
+          Platform: process.platform
+        }
       }
     ]
   ],
