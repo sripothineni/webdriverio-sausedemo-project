@@ -97,7 +97,7 @@ git commit -m "Completed assignment"
 git bundle create qa-automation-solution.bundle --all
 
 # OR to bundle only the current branch (recommended)
-git bundle create qa-automation-solution.bundle HEAD master
+git bundle create qa-automation-solution.bundle HEAD main
 ```
 
 3. Send the bundle file to the provided email address with the subject line "QA Automation Assignment - [Your Name]"
