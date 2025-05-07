@@ -23,6 +23,8 @@ Your task is to implement automated tests for the [Sauce Demo](https://www.sauce
    - Login functionality tests
    - Shopping cart functionality tests
 
+   Detailed test case descriptions can be found in the [Test Cases Documentation](./doc/test-cases.md) file.
+
 3. Make sure all tests pass successfully
 
 4. Follow best practices:
@@ -112,7 +114,7 @@ Your submission will be evaluated based on:
 
 1. **Functionality**: Do the tests work correctly?
 2. **Code Quality**: Is the code well-structured, readable, and maintainable?
-3. **Test Coverage**: Do the tests cover the required scenarios?
+3. **Test Coverage**: Do the tests cover the required scenarios as specified in the [Test Cases Documentation](./doc/test-cases.md)?
 4. **Best Practices**: Are you following testing best practices?
 5. **TypeScript Usage**: Are you using TypeScript features correctly?
 
