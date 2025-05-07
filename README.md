@@ -31,10 +31,6 @@ Your task is to implement automated tests for the [Sauce Demo](https://www.sauce
    - Add comments where necessary
    - Follow the Page Object Model pattern
 
-## Time Limit
-
-This assignment should take approximately 2 hours to complete.
-
 ## Getting Started
 
 ### Prerequisites
@@ -97,7 +93,11 @@ git commit -m "Completed assignment"
 2. Create a Git bundle of your repository:
 
 ```bash
+# To bundle the entire repository with all branches
 git bundle create qa-automation-solution.bundle --all
+
+# OR to bundle only the current branch (recommended)
+git bundle create qa-automation-solution.bundle HEAD master
 ```
 
 3. Send the bundle file to the provided email address with the subject line "QA Automation Assignment - [Your Name]"
