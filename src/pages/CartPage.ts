@@ -111,7 +111,7 @@ export default class CartPage extends BasePage {
     for (const cartContainer of cartContainers) {
       const productNameElement = await cartContainer.$('.inventory_item_name');
       const productName = await productNameElement.getText();
-      this.removeItem(productName);
+      await this.removeItem(productName);
     }
   }
 

@@ -32,7 +32,7 @@ export const config: Options.Testrunner = {
     {
       browserName: 'chrome',
       'goog:chromeOptions': {
-        args: ['--disable-gpu', '--window-size=1920,1080'],
+        args: ['--headless', '--disable-gpu', '--window-size=1920,1080'],
         prefs: {
           // Disable password manager
           'credentials_enable_service': false,
