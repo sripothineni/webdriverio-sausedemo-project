@@ -33,7 +33,7 @@ describe('Login functionality', () => {
 
     // Verify that the error message is displayed
     const errorMessage = await loginPage.getErrorMessage();
-    expect(errorMessage).toContain('Username and password do not match');
+    await expect(errorMessage).toContain('Username and password do not match');
 
     // Add the error message to the report
     await ReportHelper.addAttachment('Error message', errorMessage, 'text/plain');

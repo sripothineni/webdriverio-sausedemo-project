@@ -15,8 +15,13 @@ export default class BasePage {
    * @param selector Element selector
    * @param timeout Timeout in ms
    */
-  async waitForDisplayed(selector: string, timeout: number = 10000): Promise<void> {
-    await $(selector).waitForDisplayed({ timeout });
+  async waitForDisplayed(selector: string, timeout: number = 10000): Promise<boolean> {
+    try {
+      await $(selector).waitForDisplayed({ timeout });
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
   /**

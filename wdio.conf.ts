@@ -32,7 +32,13 @@ export const config: Options.Testrunner = {
     {
       browserName: 'chrome',
       'goog:chromeOptions': {
-        args: ['--headless', '--disable-gpu', '--window-size=1920,1080']
+        args: ['--disable-gpu', '--window-size=1920,1080'],
+        prefs: {
+          // Disable password manager
+          'credentials_enable_service': false,
+          'profile.password_manager_enabled': false,
+          'profile.password_manager_leak_detection': false
+        }
       }
     }
   ],
@@ -41,7 +47,7 @@ export const config: Options.Testrunner = {
   // Test Configurations
   // ===================
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: 'info',
+  logLevel: 'error',
   bail: 0,
   baseUrl: 'https://www.saucedemo.com',
   waitforTimeout: 10000,

@@ -7,6 +7,19 @@ import BasePage from './BasePage';
 export default class LoginPage extends BasePage {
   // TODO: Define selectors for username, password, login button, and error message
 
+  private get inputUsername(): string {
+    return '#user-name';
+  }
+  private get inputPassword(): string {
+    return '#password';
+  }
+  private get btnLogin(): string {
+    return '#login-button';
+  }
+  private get containerErrorMessage(): string {
+    return '.error-message-container >h3';
+  }
+
   /**
    * Opens the login page
    */
@@ -22,7 +35,9 @@ export default class LoginPage extends BasePage {
    */
   async login(username: string, password: string): Promise<void> {
     // TODO: Implement login functionality
-    throw new Error('Method not implemented');
+    await this.setValue(this.inputUsername, username);
+    await this.setValue(this.inputPassword, password);
+    await this.click(this.btnLogin);
   }
 
   /**
@@ -31,7 +46,6 @@ export default class LoginPage extends BasePage {
    * TODO: Implement this method
    */
   async getErrorMessage(): Promise<string> {
-    // TODO: Implement getting error message
-    throw new Error('Method not implemented');
+    return await this.getText(this.containerErrorMessage);
   }
 }

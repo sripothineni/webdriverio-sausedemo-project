@@ -35,9 +35,10 @@ describe('Shopping cart functionality', () => {
 
     // Navigate to the cart page
     await inventoryPage.goToCart();
-
     // Verify that the cart contains the correct items
     const cartItems = await cartPage.getCartItems();
+    //Remove all old products from the cart
+    await cartPage.removeAllItems();
     expect(cartItems).toEqual(['Sauce Labs Backpack', 'Sauce Labs Bike Light']);
   });
 
@@ -50,9 +51,8 @@ describe('Shopping cart functionality', () => {
 
     // Remove the item
     await cartPage.removeItem('Sauce Labs Backpack');
-
     // Verify that the item is no longer in the cart
     const cartItems = await cartPage.getCartItems();
-    expect(cartItems).toEqual([]);
+    await expect(cartItems).toEqual([]);
   });
 });

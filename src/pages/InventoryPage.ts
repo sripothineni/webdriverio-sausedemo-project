@@ -5,7 +5,19 @@ import BasePage from './BasePage';
  * TODO: Candidate should implement this page object
  */
 export default class InventoryPage extends BasePage {
-  // TODO: Define selectors for inventory items, add to cart buttons, cart icon, etc.
+  // Locators
+  private get lblProducts(): string {
+    return '.title';
+  }
+  private get BtnCarticon(): string {
+    return '.shopping_cart_link';
+  }
+  private get inventoryItems(): string {
+    return '.inventory_item';
+  }
+  private get cartBadge(): string {
+    return '.shopping_cart_badge';
+  }
 
   /**
    * Checks if the page is loaded
@@ -13,36 +25,55 @@ export default class InventoryPage extends BasePage {
    * TODO: Implement this method
    */
   async isLoaded(): Promise<boolean> {
-    // TODO: Implement check if inventory page is loaded
-    throw new Error('Method not implemented');
+    return await this.waitForDisplayed(this.lblProducts);
   }
 
   /**
    * Adds an item to the cart by its name
    * @param itemName Name of the item to add
-   * TODO: Implement this method
    */
   async addItemToCart(itemName: string): Promise<void> {
-    // TODO: Implement adding item to cart
-    throw new Error('Method not implemented');
+    try {
+      // Get all product containers on the page
+      const productContainers = await $$(this.inventoryItems);
+
+      for (const product of productContainers) {
+        // Locate the product name element inside the current product container
+        const nameElement = await product.$('[data-test="inventory-item-name"]');
+        const nameText = await nameElement.getText();
+
+        // Check if the product name matches with the given itemName
+        if (nameText.trim() === itemName) {
+          const AddorRemoveFromCartButton = await product.$('button.btn_inventory');
+          const buttonText = await AddorRemoveFromCartButton.getText();
+
+          // Only click if the button has "Add to cart" text
+          if (buttonText.trim().toLowerCase() === 'add to cart') {
+            await AddorRemoveFromCartButton.click();
+            console.log(`Item "${itemName}" added to cart.`);
+          } else {
+            console.log(`Item "${itemName}" is already in the cart. Skipping click.`);
+          }
+          return;
+        }
+      }
+    } catch (error) {
+      console.error(`Error while adding item "${itemName}" to cart:`, error);
+    }
   }
 
   /**
    * Gets the number of items in the cart
    * @returns Number of items in the cart
-   * TODO: Implement this method
    */
-  async getCartItemCount(): Promise<number> {
-    // TODO: Implement getting cart item count
-    throw new Error('Method not implemented');
+  async getCartItemCount(): Promise<string> {
+    return await this.getText(this.cartBadge);
   }
 
   /**
    * Navigates to the cart page
-   * TODO: Implement this method
    */
   async goToCart(): Promise<void> {
-    // TODO: Implement navigation to cart
-    throw new Error('Method not implemented');
+    await this.click(this.BtnCarticon);
   }
 }
