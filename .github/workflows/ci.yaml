@@ -22,15 +22,19 @@ jobs:
         - name: 🏗️ Install Dependencies   # Installs the project dependencies from package.json
           run: |
           echo "Running tests for suite: $SUITE"
-          if [ "$SUITE" = "all" ]; then
-            npm run test
-          elif [ "$SUITE" = "@smoke" ] || [ "$SUITE" = "@regression" ]; then
-            npx mocha --grep "$SUITE"
-          else
-            echo "Invalid suite input: $SUITE"
-            exit 1
-          fi
-
+          case "$SUITE" in
+            all)
+              npm test
+              ;;
+            @smoke|@regression)
+              npx mocha --grep "$SUITE"
+              ;;
+            *)
+              echo "Invalid suite: $SUITE"
+              exit 1
+              ;;
+          esac
+          
         - name: 🧪 Test   # Runs your test suite via the custom script test:local defined in your package.json.
           run: npm run test
 
