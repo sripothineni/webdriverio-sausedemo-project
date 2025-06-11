@@ -19,7 +19,7 @@ describe('Shopping cart functionality', () => {
     await expect(inventoryPage.isLoaded()).resolves.toBe(true);
   });
 
-  it('should add an item to the cart', async () => {
+  it('should add an item to the cart @regression @smoke', async () => {
     // Add a specific item to the cart
     await inventoryPage.addItemToCart('Sauce Labs Backpack');
 
@@ -28,7 +28,7 @@ describe('Shopping cart functionality', () => {
     expect(cartBadge).toBe('1');
   });
 
-  it('should display the correct items in the cart', async () => {
+  it('should display the correct items in the cart @regression', async () => {
     // Add specific items to the cart
     await inventoryPage.addItemToCart('Sauce Labs Backpack');
     await inventoryPage.addItemToCart('Sauce Labs Bike Light');
@@ -42,7 +42,11 @@ describe('Shopping cart functionality', () => {
     expect(cartItems).toEqual(['Sauce Labs Backpack', 'Sauce Labs Bike Light']);
   });
 
-  it('should remove an item from the cart', async () => {
+  it('should remove an item from the cart @regression @smoke', async () => {
+    // Navigate to the cart page
+    await inventoryPage.goToCart();
+    //Remove all old products from the cart
+    await cartPage.removeAllItems();
     // Add item to the cart
     await inventoryPage.addItemToCart('Sauce Labs Backpack');
 
@@ -50,7 +54,7 @@ describe('Shopping cart functionality', () => {
     await inventoryPage.goToCart();
 
     // Remove the item
-    await cartPage.removeItem('Sauce Labs Backpack');
+    await cartPage.removeItem('Sauce Labs Backpack @regression');
     // Verify that the item is no longer in the cart
     const cartItems = await cartPage.getCartItems();
     await expect(cartItems).toEqual([]);

@@ -17,6 +17,10 @@ export default class CartPage extends BasePage {
     return '.cart_item';
   }
 
+  private get btnCheckout(): string {
+    return '#checkout';
+  }
+
   /**
    * Checks if the page is loaded
    * @returns True if the page is loaded
@@ -119,8 +123,8 @@ export default class CartPage extends BasePage {
    * Proceeds to checkout
    * TODO: Implement this method
    */
-  async checkout(): Promise<void> {
+  async clickOnCheckout(): Promise<void> {
     // TODO: Implement checkout
-    throw new Error('Method not implemented');
+    this.click(this.btnCheckout);
   }
 }

@@ -9,7 +9,9 @@
     "test:report": "npm test && npm run report",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"**/*.ts\"",
-    "report": "allure generate --clean allure-results -o allure-report && allure open allure-report"
+    "report": "allure generate --clean allure-results -o allure-report && allure open allure-report",
+    "test-smoke": "npx wdio run ./wdio.conf.ts --mochaOpts.grep=@smoke",
+    "test-regression": "npx wdio run ./wdio.conf.ts --mochaOpts.grep=@regression"
   },
   "engines": {
     "node": ">=22.0.0"
@@ -33,7 +35,7 @@
     "@wdio/mocha-framework": "^8.32.3",
     "@wdio/spec-reporter": "^8.32.2",
     "allure-commandline": "^2.34.0",
-    "chromedriver": "^135.0.0",
+    "chromedriver": "^137.0.2",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",

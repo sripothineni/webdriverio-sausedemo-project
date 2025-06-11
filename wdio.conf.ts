@@ -18,7 +18,7 @@ export const config: Options.Testrunner = {
   // ==================
   // Specify Test Files
   // ==================
-  specs: ['./test/specs/**/*.ts'],
+  specs: ['./test/specs/**/*.spec.ts'],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -27,12 +27,14 @@ export const config: Options.Testrunner = {
   // ============
   // Capabilities
   // ============
-  maxInstances: 1,
+  maxInstances: 10,
   capabilities: [
     {
+      maxInstances: 1,
       browserName: 'chrome',
       'goog:chromeOptions': {
-        args: ['--headless', '--disable-gpu', '--window-size=1920,1080'],
+        //args: ['--headless', '--disable-gpu', '--window-size=1920,1080'],
+        args: ['--disable-gpu', '--window-size=1920,1080'],
         prefs: {
           // Disable password manager
           'credentials_enable_service': false,
@@ -76,6 +78,7 @@ export const config: Options.Testrunner = {
   // Options to be passed to Mocha.
   mochaOpts: {
     ui: 'bdd',
-    timeout: 60000
+    timeout: 60000,
+    grep: process.env.npm_config_grep
   }
 };

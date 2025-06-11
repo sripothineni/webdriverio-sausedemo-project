@@ -13,7 +13,7 @@ describe('Login functionality', () => {
     await loginPage.open();
   });
 
-  it('should login with valid credentials', async () => {
+  it('should login with valid credentials @smoke', async () => {
     ReportHelper.addStep('Attempting login with standard user');
     // Login with standard user credentials
     await loginPage.login(TestData.STANDARD_USER.username, TestData.STANDARD_USER.password);
@@ -26,7 +26,7 @@ describe('Login functionality', () => {
     await ReportHelper.takeScreenshot('After successful login');
   });
 
-  it('should show error message with invalid credentials', async () => {
+  it('should show error message with invalid credentials @smoke', async () => {
     ReportHelper.addStep('Attempting login with invalid credentials');
     // Login with invalid credentials
     await loginPage.login(TestData.INVALID_USER.username, TestData.INVALID_USER.password);
