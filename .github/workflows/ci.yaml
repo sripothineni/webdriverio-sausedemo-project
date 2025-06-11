@@ -9,6 +9,8 @@ workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest # where to run pulls the image
+    env:
+      SUITE: ${{ github.event.inputs.suite }}
     steps:    # individual tasks for the job
         - name: ⬇️ Checkout Code   # Uses GitHub's official action to clone the repo so that it can access your code
           uses: actions/checkout@v4
