@@ -25,23 +25,24 @@ jobs:
         - name: 🏗️ Install Dependencies   # Installs the project dependencies from package.json
           run: npm install
 
-        - name: 🧪 Test   # Runs your test suite via the custom script test:local defined in your package.json.
-          if: ${{ github.event.inputs.suite == 'all' }}
+        - name: 🧪 Test
+          if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.suite == 'all' }}
           run: npm run test
-
+        
         - name: Run smoke tests
-          if: ${{ github.event.inputs.suite == '@smoke' }}
+          if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.suite == '@smoke' }}
           run: npx mocha --grep '@smoke'
 
         - name: Run regression tests
-          if: ${{ github.event.inputs.suite == '@regression' }}
+          if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.suite == '@regression' }}
           run: npx mocha --grep '@regression'
-
+        
         - name: Fail if invalid suite input
-          if: ${{ github.event.inputs.suite != 'all' && github.event.inputs.suite != '@smoke' && github.event.inputs.suite != '@regression' }}
+          if: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.suite != 'all' && github.event.inputs.suite != '@smoke' && github.event.inputs.suite != '@regression') }}
           run: |
             echo "Invalid suite input: ${{ github.event.inputs.suite }}"
             exit 1
+          
 
         - name: 🧪 Generate Allure Report
           if: always()  # Ensures it runs even if tests fail
