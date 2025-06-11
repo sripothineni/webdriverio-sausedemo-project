@@ -16,7 +16,7 @@ jobs:
           run: npm install
 
         - name: 🧪 Test   # Runs your test suite via the custom script test:local defined in your package.json.
-          run: npm run wdio
+          run: npm run test
 
         - name: 🧪 Generate Allure Report
           if: always()  # Ensures it runs even if tests fail
