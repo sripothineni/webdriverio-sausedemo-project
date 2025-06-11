@@ -3,14 +3,10 @@ on: [push, pull_request] # when the workflow is triggered
 workflow_dispatch:
     inputs:
       suite:
-        description: 'Choose test suite to run'
+        description: 'Enter test suite to run: @smoke, @regression, or all'
         required: true
         default: 'all'
-        type: choice
-        options:
-          - all
-          - @smoke
-          - @regression
+
 jobs:
   build:
     runs-on: ubuntu-latest # where to run pulls the image
@@ -25,12 +21,15 @@ jobs:
 
         - name: 🏗️ Install Dependencies   # Installs the project dependencies from package.json
           run: |
-          if [ "${{ github.event.inputs.suite }}" = "all" ]; then
-            echo "Running all tests"
+          SUITE="${{ github.event.inputs.suite }}"
+          echo "Selected suite: $SUITE"
+          if [ "$SUITE" = "all" ]; then
             npm run test
+          elif [ "$SUITE" = "@smoke" ] || [ "$SUITE" = "@regression" ]; then
+            npx wdio wdio.conf.js --mochaOpts.grep=$SUITE
           else
-            echo "Running tests with Mocha grep: ${{ github.event.inputs.suite }}"
-            npx wdio wdio.conf.js --mochaOpts.grep=${{ github.event.inputs.suite }}
+            echo "Invalid suite value: $SUITE"
+            exit 1
           fi
 
         - name: 🧪 Test   # Runs your test suite via the custom script test:local defined in your package.json.
