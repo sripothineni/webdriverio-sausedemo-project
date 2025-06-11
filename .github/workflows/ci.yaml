@@ -1,5 +1,16 @@
 name: CI  #Workflow name
 on: [push, pull_request] # when the workflow is triggered
+workflow_dispatch:
+    inputs:
+      suite:
+        description: 'Choose test suite to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - @smoke
+          - @regression
 jobs:
   build:
     runs-on: ubuntu-latest # where to run pulls the image
