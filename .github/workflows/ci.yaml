@@ -23,12 +23,15 @@ jobs:
           run: |
           SUITE="${{ github.event.inputs.suite }}"
           echo "Selected suite: $SUITE"
+
           if [ "$SUITE" = "all" ]; then
+            echo "Running all tests..."
             npm run test
           elif [ "$SUITE" = "@smoke" ] || [ "$SUITE" = "@regression" ]; then
+            echo "Running tests with grep: $SUITE"
             npx wdio wdio.conf.js --mochaOpts.grep=$SUITE
           else
-            echo "Invalid suite value: $SUITE"
+            echo "❌ Invalid suite value: $SUITE"
             exit 1
           fi
 
