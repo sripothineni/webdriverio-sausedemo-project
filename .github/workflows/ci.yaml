@@ -1,5 +1,7 @@
 name: CI  #Workflow name
-on: [push, pull_request] # when the workflow is triggered
+on: 
+  push:
+  pull_request:
   workflow_dispatch:
     inputs:
       suite:
