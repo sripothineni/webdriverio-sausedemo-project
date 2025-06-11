@@ -1,6 +1,6 @@
 name: CI  #Workflow name
 on: [push, pull_request] # when the workflow is triggered
-workflow_dispatch:
+  workflow_dispatch:
     inputs:
       suite:
         description: 'Test suite to run: @smoke, @regression, or all'
