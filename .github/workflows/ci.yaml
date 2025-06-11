@@ -24,7 +24,7 @@ jobs:
           echo "Running tests for suite: $SUITE"
           case "$SUITE" in
             all)
-              npm test
+              npm run test
               ;;
             @smoke|@regression)
               npx mocha --grep "$SUITE"
@@ -34,7 +34,7 @@ jobs:
               exit 1
               ;;
           esac
-          
+
         - name: 🧪 Test   # Runs your test suite via the custom script test:local defined in your package.json.
           run: npm run test
 
