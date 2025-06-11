@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest # where to run pulls the image
     env:
-      SUITE: ${{ github.event.inputs.suite }}
+      SUITE: ${{ github.event.inputs.suite || 'all' }}
     steps:    # individual tasks for the job
         - name: ⬇️ Checkout Code   # Uses GitHub's official action to clone the repo so that it can access your code
           uses: actions/checkout@v4
@@ -25,24 +25,23 @@ jobs:
         - name: 🏗️ Install Dependencies   # Installs the project dependencies from package.json
           run: npm install
 
-        - name: 🧪 Test
-          if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.suite == 'all' }}
+        - name: 🧪 Run all Test
+          if: ${{ env.SUITE == 'all' }}
           run: npm run test
         
-        - name: Run smoke tests
-          if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.suite == '@smoke' }}
-          run: npx mocha --grep '@smoke'
+        - name: 🧪 Run smoke tests
+          if: ${{ env.SUITE == '@smoke' }}
+          run: npm run test-smoke
 
-        - name: Run regression tests
-          if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.suite == '@regression' }}
-          run: npx mocha --grep '@regression'
+        - name: 🧪 Run regression tests
+          if: ${{ env.SUITE == '@regression' }}
+          run: npm run test-regression
         
-        - name: Fail if invalid suite input
-          if: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.suite != 'all' && github.event.inputs.suite != '@smoke' && github.event.inputs.suite != '@regression') }}
+        - name: ❌ Fail if invalid suite input
+          if: ${{ env.SUITE != 'all' && env.SUITE != '@smoke' && env.SUITE != '@regression' }}
           run: |
-            echo "Invalid suite input: ${{ github.event.inputs.suite }}"
+            echo "Invalid suite input: ${{ env.SUITE }}"
             exit 1
-          
 
         - name: 🧪 Generate Allure Report
           if: always()  # Ensures it runs even if tests fail
