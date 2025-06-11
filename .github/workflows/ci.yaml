@@ -24,21 +24,23 @@ jobs:
           run: npm install
 
         - name: 🧪 Test   # Runs your test suite via the custom script test:local defined in your package.json.
-          shell: bash
+        - name: Run all tests
+          if: ${{ github.event.inputs.suite == 'all' }}
+          run: npm run test
+
+        - name: Run smoke tests
+          if: ${{ github.event.inputs.suite == '@smoke' }}
+          run: npx mocha --grep '@smoke'
+
+        - name: Run regression tests
+          if: ${{ github.event.inputs.suite == '@regression' }}
+          run: npx mocha --grep '@regression'
+
+        - name: Fail if invalid suite input
+          if: ${{ github.event.inputs.suite != 'all' && github.event.inputs.suite != '@smoke' && github.event.inputs.suite != '@regression' }}
           run: |
-          echo "Running tests for suite: $SUITE"
-          case "$SUITE" in
-            all)
-              npm run test
-              ;;
-            @smoke|@regression)
-              npx mocha --grep "$SUITE"
-              ;;
-            *)
-              echo "Invalid suite: $SUITE"
-              exit 1
-              ;;
-          esac
+            echo "Invalid suite input: ${{ github.event.inputs.suite }}"
+            exit 1
 
         - name: 🧪 Generate Allure Report
           if: always()  # Ensures it runs even if tests fail
