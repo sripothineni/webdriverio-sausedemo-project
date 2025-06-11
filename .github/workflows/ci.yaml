@@ -21,16 +21,16 @@ jobs:
 
         - name: 🏗️ Install Dependencies   # Installs the project dependencies from package.json
           run: |
-          echo "Test suite input: ${{ github.event.inputs.suite }}"
+          echo "Test suite input: $SUITE"
 
-          if [[ "${{ github.event.inputs.suite }}" == "all" ]]; then
+          if [ "$SUITE" = "all" ]; then
             echo "➡️ Running all tests"
             npm run test
-          elif [[ "${{ github.event.inputs.suite }}" == "@smoke" ]] || [[ "${{ github.event.inputs.suite }}" == "@regression" ]]; then
-            echo "➡️ Running tests with grep: ${{ github.event.inputs.suite }}"
-            npx wdio wdio.conf.js --mochaOpts.grep='${{ github.event.inputs.suite }}'
+          elif [ "$SUITE" = "@smoke" ] || [ "$SUITE" = "@regression" ]; then
+            echo "➡️ Running tests with grep: $SUITE"
+            npx wdio wdio.conf.js --mochaOpts.grep="$SUITE"
           else
-            echo "❌ Invalid test suite: ${{ github.event.inputs.suite }}"
+            echo "❌ Invalid test suite: $SUITE"
             exit 1
           fi
 
