@@ -3,10 +3,9 @@ on: [push, pull_request] # when the workflow is triggered
 workflow_dispatch:
     inputs:
       suite:
-        description: 'Enter test suite to run: @smoke, @regression, or all'
+        description: 'Test suite to run: @smoke, @regression, or all'
         required: true
         default: 'all'
-
 jobs:
   build:
     runs-on: ubuntu-latest # where to run pulls the image
@@ -20,6 +19,9 @@ jobs:
             node-version: '20'
 
         - name: 🏗️ Install Dependencies   # Installs the project dependencies from package.json
+          run: npm install
+
+        - name: 🧪 Test   # Runs your test suite via the custom script test:local defined in your package.json.
           run: |
           echo "Running tests for suite: $SUITE"
           case "$SUITE" in
@@ -34,9 +36,6 @@ jobs:
               exit 1
               ;;
           esac
-
-        - name: 🧪 Test   # Runs your test suite via the custom script test:local defined in your package.json.
-          run: npm run test
 
         - name: 🧪 Generate Allure Report
           if: always()  # Ensures it runs even if tests fail
