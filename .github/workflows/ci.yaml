@@ -21,16 +21,16 @@ jobs:
 
         - name: 🏗️ Install Dependencies   # Installs the project dependencies from package.json
           run: |
-          echo "Test suite input: $SUITE"
+          echo "Selected suite: $SUITE"
 
           if [ "$SUITE" = "all" ]; then
-            echo "➡️ Running all tests"
+            echo "Running full test suite"
             npm run test
           elif [ "$SUITE" = "@smoke" ] || [ "$SUITE" = "@regression" ]; then
-            echo "➡️ Running tests with grep: $SUITE"
+            echo "Running filtered tests with grep: $SUITE"
             npx wdio wdio.conf.js --mochaOpts.grep="$SUITE"
           else
-            echo "❌ Invalid test suite: $SUITE"
+            echo "Invalid suite specified: $SUITE"
             exit 1
           fi
 
