@@ -26,8 +26,10 @@ jobs:
         - name: 🧪 Test   # Runs your test suite via the custom script test:local defined in your package.json.
           shell: bash
           run: |
+          run: |
           echo "Running tests for suite: $SUITE"
-          case "$SUITE" in all)
+          case "$SUITE" in
+            all)
               npm run test
               ;;
             @smoke|@regression)
